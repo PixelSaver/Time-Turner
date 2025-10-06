@@ -14,3 +14,7 @@ config/name="Time Turner"
 run/main_scene="uid://npag1v6cw4w5"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/godot_super-wakatime/plugin.cfg")
