@@ -1,4 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://bcpq7dlbvxm7q"]
+[gd_scene load_steps=8 format=3 uid="uid://bcpq7dlbvxm7q"]
+
+[ext_resource type="Script" uid="uid://go3ktus0ojnc" path="res://Scripts/timeturner.gd" id="1_seunl"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_t4i0o"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -23,7 +25,10 @@ radius = 1.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_t4i0o"]
 
-[node name="Timeturner" type="Node3D"]
+[node name="Timeturner" type="Node3D" node_paths=PackedStringArray("inner_ring", "center")]
+script = ExtResource("1_seunl")
+inner_ring = NodePath("Ring1")
+center = NodePath("Center")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_6v6tp")
@@ -45,6 +50,7 @@ height = 2.75
 
 [node name="Ring 2" type="CSGCombiner3D" parent="."]
 transform = Transform3D(0.997808, 0, 0, 0, 0.997808, 0, 0, 0, 0.997808, 0, 0, 0)
+visible = false
 
 [node name="CSGCylinder3D3" type="CSGCylinder3D" parent="Ring 2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
@@ -63,10 +69,8 @@ sides = 32
 transform = Transform3D(1, 0, 0, 0, 0.784463, 0.620176, 0, -0.620176, 0.784463, 0, 2.52363, 2.99423)
 
 [node name="Ring1" type="RigidBody3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 gravity_scale = 0.0
 center_of_mass_mode = 1
-angular_velocity = Vector3(0, 0, 0.872665)
 angular_damp_mode = 1
 
 [node name="Ring 1" type="CSGCombiner3D" parent="Ring1"]
@@ -87,16 +91,9 @@ sides = 32
 shape = SubResource("CylinderShape3D_t4i0o")
 disabled = true
 
-[node name="Outer" type="HingeJoint3D" parent="Ring1"]
-node_b = NodePath("../../Base")
-angular_limit/enable = true
-angular_limit/lower = 1.5708
-
 [node name="Center" type="RigidBody3D" parent="."]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 axis_lock_angular_y = true
 gravity_scale = 0.0
-angular_velocity = Vector3(0.872665, 0, 0)
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="Center"]
 radius = 1.0
@@ -112,11 +109,8 @@ height = 2.75
 shape = SubResource("CylinderShape3D_seunl")
 disabled = true
 
-[node name="Inner" type="HingeJoint3D" parent="Center"]
-node_a = NodePath("../../Ring1")
-node_b = NodePath("..")
-
 [node name="Base" type="StaticBody3D" parent="."]
+visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Base"]
 shape = SubResource("SphereShape3D_t4i0o")
