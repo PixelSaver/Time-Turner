@@ -1,24 +1,22 @@
 extends Node3D
 
 @export var inner_ring : PhysicsBody3D
+var inner_vel : float
 @export var center : PhysicsBody3D
+var center_vel : float
 var rotation_speed : float = 10
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("ui_left"):
-		var torque_strength = 10.0
-
-		# Spin inner ring
-		var torque_inner = inner_ring.global_transform.basis.z * torque_strength
-		inner_ring.apply_torque(torque_inner)
-
-		# Spin center: shared + local
-		var torque_shared = torque_inner
-		var torque_local = center.global_transform.basis.x * torque_strength
-		center.apply_torque(torque_shared + torque_local)
-	if Input.is_action_pressed("ui_right"):
-		
-		quat_rot(-rotation_speed * delta, -rotation_speed * delta / 3)
+		inner_vel = -rotation_speed * delta
+		center_vel = -rotation_speed * delta
+	elif Input.is_action_pressed("ui_right"):
+		inner_vel = rotation_speed * delta
+		center_vel = rotation_speed * delta
+	else:
+		inner_vel = move_toward(inner_vel, 0, delta/10)
+		center_vel = move_toward(center_vel, 0, delta/10)
+	quat_rot(center_vel, inner_vel/3)
 
 ## Written with the help of ChatGPT
 func quat_rot(angle_center, angle_inner, angle_outer=null):

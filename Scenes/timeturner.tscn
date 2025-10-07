@@ -73,10 +73,6 @@ radius = 1.8
 height = 0.2
 sides = 32
 
-[node name="HingeJoint3D" type="HingeJoint3D" parent="Ring2"]
-node_a = NodePath("..")
-node_b = NodePath("../../Ring1")
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ring2"]
 shape = SubResource("CylinderShape3D_6v6tp")
 
@@ -89,7 +85,6 @@ axis_lock_angular_y = true
 gravity_scale = 0.0
 center_of_mass_mode = 1
 angular_damp_mode = 1
-angular_damp = 0.2
 
 [node name="Ring 1" type="CSGCombiner3D" parent="Ring1"]
 rotation_edit_mode = 1
@@ -108,12 +103,6 @@ sides = 10
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ring1"]
 shape = SubResource("CylinderShape3D_t4i0o")
 disabled = true
-
-[node name="HingeJoint3D" type="HingeJoint3D" parent="Ring1"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
-node_a = NodePath("..")
-node_b = NodePath("../../Center")
-motor/enable = true
 
 [node name="Center" type="RigidBody3D" parent="."]
 rotation_edit_mode = 1
