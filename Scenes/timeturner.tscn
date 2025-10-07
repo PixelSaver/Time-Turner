@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bcpq7dlbvxm7q"]
+[gd_scene load_steps=9 format=3 uid="uid://bcpq7dlbvxm7q"]
 
 [ext_resource type="Script" uid="uid://go3ktus0ojnc" path="res://Scripts/timeturner.gd" id="1_seunl"]
 
@@ -14,6 +14,10 @@ background_mode = 2
 sky = SubResource("Sky_seunl")
 tonemap_mode = 2
 glow_enabled = true
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_6v6tp"]
+height = 0.2
+radius = 2.0
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_t4i0o"]
 height = 0.2
@@ -48,29 +52,40 @@ operation = 2
 radius = 0.1
 height = 2.75
 
-[node name="RigidBody3D" type="RigidBody3D" parent="."]
+[node name="Ring2" type="RigidBody3D" parent="."]
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+gravity_scale = 0.0
 
-[node name="Ring 2" type="CSGCombiner3D" parent="RigidBody3D"]
+[node name="Ring 2" type="CSGCombiner3D" parent="Ring2"]
 transform = Transform3D(0.997808, 0, 0, 0, 0.997808, 0, 0, 0, 0.997808, 0, 0, 0)
-visible = false
 
-[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="RigidBody3D/Ring 2"]
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="Ring2/Ring 2"]
 radius = 2.0
 height = 0.2
 sides = 32
 
-[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="RigidBody3D/Ring 2"]
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Ring2/Ring 2"]
 transform = Transform3D(1.01118, 0, 0, 0, 1.01118, 0, 0, 0, 1.01118, 0, 0, 0)
 operation = 2
 radius = 1.8
 height = 0.2
 sides = 32
 
+[node name="HingeJoint3D" type="HingeJoint3D" parent="Ring2"]
+node_a = NodePath("..")
+node_b = NodePath("../../Ring1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ring2"]
+shape = SubResource("CylinderShape3D_6v6tp")
+
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.784463, 0.620176, 0, -0.620176, 0.784463, 0, 2.52363, 2.99423)
 
 [node name="Ring1" type="RigidBody3D" parent="."]
 rotation_edit_mode = 1
+axis_lock_angular_y = true
 gravity_scale = 0.0
 center_of_mass_mode = 1
 angular_damp_mode = 1
@@ -95,12 +110,10 @@ shape = SubResource("CylinderShape3D_t4i0o")
 disabled = true
 
 [node name="HingeJoint3D" type="HingeJoint3D" parent="Ring1"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 node_a = NodePath("..")
 node_b = NodePath("../../Center")
-angular_limit/enable = true
-angular_limit/upper = 0.0
-angular_limit/lower = 0.0
+motor/enable = true
 
 [node name="Center" type="RigidBody3D" parent="."]
 rotation_edit_mode = 1
