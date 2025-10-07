@@ -6,7 +6,16 @@ var rotation_speed : float = 10
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("ui_left"):
-		quat_rot(rotation_speed * delta, rotation_speed * delta / 3)
+		var torque_strength = 10.0
+
+		# Spin inner ring
+		var torque_inner = inner_ring.global_transform.basis.z * torque_strength
+		inner_ring.apply_torque(torque_inner)
+
+		# Spin center: shared + local
+		var torque_shared = torque_inner
+		var torque_local = center.global_transform.basis.x * torque_strength
+		center.apply_torque(torque_shared + torque_local)
 	if Input.is_action_pressed("ui_right"):
 		
 		quat_rot(-rotation_speed * delta, -rotation_speed * delta / 3)
