@@ -6,25 +6,22 @@ var rotation_speed : float = 10
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("ui_left"):
-		# Rotate inner_ring around its local Z axis
-		var z_rotation = Quaternion(Vector3.FORWARD, rotation_speed * delta)
-		inner_ring.transform.basis = Basis(z_rotation * Quaternion(inner_ring.transform.basis))
-		
-		# Apply same Z rotation to center in global space
-		center.global_transform.basis = Basis(z_rotation * Quaternion(center.global_transform.basis))
-		
-		# Then rotate center around its own local X axis
-		var x_rotation = Quaternion(Vector3.RIGHT, rotation_speed * delta)
-		center.transform.basis = Basis(x_rotation * Quaternion(center.transform.basis))
-		
+		quat_rot(rotation_speed * delta, rotation_speed * delta / 3)
 	if Input.is_action_pressed("ui_right"):
-		# Rotate inner_ring around its local Z axis (negative)
-		var z_rotation = Quaternion(Vector3.FORWARD, -rotation_speed * delta)
-		inner_ring.transform.basis = Basis(z_rotation * Quaternion(inner_ring.transform.basis))
 		
-		# Apply same Z rotation to center in global space
-		center.global_transform.basis = Basis(z_rotation * Quaternion(center.global_transform.basis))
-		
-		# Then rotate center around its own local X axis (negative)
-		var x_rotation = Quaternion(Vector3.RIGHT, -rotation_speed * delta)
-		center.transform.basis = Basis(x_rotation * Quaternion(center.transform.basis))
+		quat_rot(-rotation_speed * delta, -rotation_speed * delta / 3)
+
+## Written with the help of ChatGPT
+func quat_rot(angle_center, angle_inner, angle_outer=null):
+	if angle_outer: return
+	
+	# Shared rotation (around inner_ring's Z, in parent space)
+	var shared_axis := inner_ring.transform.basis.z.normalized()
+	var q_shared := Quaternion(shared_axis, angle_inner)
+
+	# Local spin around center's own X axis
+	var q_local := Quaternion(Vector3.RIGHT, angle_center)
+
+	# Apply
+	inner_ring.transform.basis = Basis(q_shared) * inner_ring.transform.basis
+	center.transform.basis = Basis(q_shared) * center.transform.basis * Basis(q_local)
