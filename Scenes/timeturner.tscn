@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bcpq7dlbvxm7q"]
+[gd_scene load_steps=16 format=3 uid="uid://bcpq7dlbvxm7q"]
 
 [ext_resource type="Script" uid="uid://go3ktus0ojnc" path="res://Scripts/timeturner.gd" id="1_seunl"]
 [ext_resource type="Shader" uid="uid://cfrtbq1050pa3" path="res://Shaders/background.gdshader" id="2_6v6tp"]
@@ -38,6 +38,14 @@ shader = ExtResource("2_6v6tp")
 
 [sub_resource type="QuadMesh" id="QuadMesh_k1arh"]
 size = Vector2(20, 15)
+
+[sub_resource type="Gradient" id="Gradient_k1arh"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_egm6d"]
+gradient = SubResource("Gradient_k1arh")
+width = 1
 
 [node name="Timeturner" type="Node3D" node_paths=PackedStringArray("inner_ring", "center")]
 script = ExtResource("1_seunl")
@@ -162,7 +170,37 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_k1arh")
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/Control"]
+[node name="Panel" type="Panel" parent="UI/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.95
+offset_left = 1259.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="UI/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.95
+anchor_right = 1.0
+anchor_bottom = 1.0
+value = 20.0
+nine_patch_stretch = true
+texture_under = SubResource("GradientTexture1D_egm6d")
+texture_progress = SubResource("GradientTexture1D_egm6d")
+tint_under = Color(1, 1, 1, 0.121569)
+tint_progress = Color(0.670094, 0.596164, 0, 1)
+
+[node name="Panel2" type="Panel" parent="UI/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.25
+anchor_bottom = 0.95
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TimeCounter" type="MarginContainer" parent="UI/Control"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.45
@@ -170,10 +208,10 @@ anchor_bottom = 0.12
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="UI/Control/MarginContainer"]
+[node name="Panel" type="Panel" parent="UI/Control/TimeCounter"]
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="UI/Control/MarginContainer/Panel"]
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/Control/TimeCounter/Panel"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
