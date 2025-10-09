@@ -4,18 +4,22 @@ extends Node3D
 var inner_vel : float
 @export var center : PhysicsBody3D
 var center_vel : float
-var rotation_speed : float = 10
+var rotation_speed : float = .3
+var max_rotation_speed : float = 1
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("ui_left"):
-		inner_vel = -rotation_speed * delta
-		center_vel = -rotation_speed * delta
+		inner_vel += -rotation_speed * delta
+		center_vel += -rotation_speed * delta
+		
 	elif Input.is_action_pressed("ui_right"):
-		inner_vel = rotation_speed * delta
-		center_vel = rotation_speed * delta
+		inner_vel += rotation_speed * delta
+		center_vel += rotation_speed * delta
 	else:
-		inner_vel = move_toward(inner_vel, 0, delta/10)
-		center_vel = move_toward(center_vel, 0, delta/10)
+		inner_vel = move_toward(inner_vel, 0, delta /5)
+		center_vel = move_toward(center_vel, 0, delta /5)
+	inner_vel = clampf(inner_vel,  -max_rotation_speed, max_rotation_speed)
+	center_vel = clampf(center_vel,  -max_rotation_speed, max_rotation_speed)
 	quat_rot(center_vel, inner_vel/3)
 
 ## Written with the help of ChatGPT

@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://npag1v6cw4w5"]
-
-[ext_resource type="PackedScene" uid="uid://bcpq7dlbvxm7q" path="res://Scenes/timeturner.tscn" id="1_jjgbg"]
-
-[node name="Main" type="Node2D"]
-
-[node name="Camera2D" type="Camera2D" parent="."]
-
-[node name="Timeturner" parent="." instance=ExtResource("1_jjgbg")]
