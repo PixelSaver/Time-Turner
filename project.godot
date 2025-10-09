@@ -15,6 +15,12 @@ run/main_scene="uid://bcpq7dlbvxm7q"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/viewport_width=1728
+window/size/viewport_height=972
+window/stretch/mode="viewport"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/godot_super-wakatime/plugin.cfg")

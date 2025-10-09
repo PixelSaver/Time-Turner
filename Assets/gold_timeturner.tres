@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dbasvcmttx2fk"]
+
+[ext_resource type="Shader" uid="uid://4a8o2x1lkqoo" path="res://Shaders/gold_timeturner.gdshader" id="1_twapy"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_twapy")
