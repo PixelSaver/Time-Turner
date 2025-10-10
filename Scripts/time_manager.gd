@@ -7,7 +7,8 @@ const BIG_BANG_AGE_YEARS : float = 13.8e9
 const SECONDS_PER_YEAR : float = 365.25 * 24 * 60 * 60
 const BIG_BANG_TIME : float = -BIG_BANG_AGE_YEARS * SECONDS_PER_YEAR
 const UNIX_EPOCH_YEAR : int = 1970
-const MAX_BC_YEAR : int = 1000000
+const MAX_BC_YEAR : int = 10e4
+const YEARS_AGO_THRESHOLD : float = 1e8
 func _ready() -> void:
 	Global.time_manager = self
 func _process(delta: float) -> void:
@@ -95,6 +96,13 @@ func get_display_time() -> String:
 		return "%d-%02d-%02d %02d:%02d:%02d BC" % [
 			bc_year, month, day, hours, minutes, seconds
 		]
+	
+	var years_ago : float = BIG_BANG_AGE_YEARS - years_since_big_bang
+	
+	if years_ago < YEARS_AGO_THRESHOLD:
+		var exponent : int = int(floor(log(years_ago) / log(10)))
+		var mantissa : float = years_ago / pow(10, exponent)
+		return "≈ %.2fe%d years ago" % [mantissa, exponent]
 	
 	if years_since_big_bang < 1e9:
 		return "≈ %.3f million years after Big Bang" % (years_since_big_bang / 1e6)
