@@ -247,4 +247,5 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("5_egm6d")
 disabled = true
+flat = true
 script = ExtResource("6_pii81")

@@ -14,8 +14,10 @@ func _ready() -> void:
 	Global.circle_button = self
 
 func _gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
-		pass
+	if Input.is_action_just_pressed("left_click") and Global.hovered_ring != Global.Rings.NONE:
+		Global.ring_pressed.emit(Global.hovered_ring)
+
+		
 
 func _process(delta: float) -> void:
 	var mouse_dist = get_global_mouse_position().distance_to(global_position + size/2)

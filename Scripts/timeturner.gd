@@ -11,35 +11,46 @@ var center_target_local_quat : Quaternion
 
 var inner_t : Tween
 var center_t : Tween
-var flip_duration : float = 10
+var flip_duration : float = .5
 
 func _ready():
 	inner_target_quat = inner_ring.transform.basis.get_rotation_quaternion()
 	center_target_local_quat = Quaternion.IDENTITY
-	await Global.circle_button_ready
+	Global.ring_pressed.connect(Callable(_on_ring_pressed))
+
+func _on_ring_pressed(ring:int):
+	match ring:
+		Global.Rings.CENTER:
+			start_center_flip()
+		Global.Rings.INNER:
+			start_inner_flip()
+		Global.Rings.OUTER:
+			pass
 
 func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("ui_down"):
-		start_inner_flip()
-	if Input.is_action_just_pressed("ui_up"):
-		start_center_flip()
+	#if Input.is_action_just_pressed("ui_down"):
+		#start_inner_flip()
+	#if Input.is_action_just_pressed("ui_up"):
+		#start_center_flip()
 	
 	if not center_t or not center_t.is_running():
 		update_center_follow_inner()
 
 func start_inner_flip() -> void:
+	if inner_t:
+		if inner_t.get_total_elapsed_time() < flip_duration:
+			return
+		inner_t.kill()
+	
 	var z_axis = Vector3.FORWARD
 	var flip_rotation = Quaternion(z_axis, PI)
 	inner_target_quat = inner_target_quat * flip_rotation 
 	
-	if inner_t:
-		inner_t.kill()
-	
 	var start_quat = inner_ring.transform.basis.get_rotation_quaternion()
 	
 	inner_t = create_tween()
-	inner_t.set_trans(Tween.TRANS_ELASTIC)
-	inner_t.set_ease(Tween.EASE_OUT)
+	inner_t.set_trans(Tween.TRANS_QUINT)
+	#inner_t.set_ease(Tween.EASE_OUT)
 	
 	inner_t.tween_method(func(t):
 		var current = start_quat.slerp(inner_target_quat, t)
@@ -50,12 +61,14 @@ func start_inner_flip() -> void:
 	, 0.0, 1.0, flip_duration)
 
 func start_center_flip() -> void:
+	if center_t:
+		if center_t.get_total_elapsed_time() < flip_duration:
+			return
+		center_t.kill()
+	
 	var x_axis = Vector3.RIGHT
 	var flip_rotation = Quaternion(x_axis, PI)
 	center_target_local_quat = center_target_local_quat * flip_rotation
-	
-	if center_t:
-		center_t.kill()
 	
 	# center's LOCAL rotation
 	var inner_quat = inner_ring.transform.basis.get_rotation_quaternion()
@@ -63,8 +76,8 @@ func start_center_flip() -> void:
 	var start_local_quat = inner_quat.inverse() * center_quat
 	
 	center_t = create_tween()
-	center_t.set_trans(Tween.TRANS_ELASTIC)
-	center_t.set_ease(Tween.EASE_OUT)
+	center_t.set_trans(Tween.TRANS_QUINT)
+	#center_t.set_ease(Tween.EASE_IN)
 	
 	center_t.tween_method(func(t):
 		var current_inner_quat = inner_ring.transform.basis.get_rotation_quaternion()
