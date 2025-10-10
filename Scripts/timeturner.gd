@@ -16,15 +16,15 @@ var flip_duration : float = .5
 
 # Mults for upgrades
 var center_mults: Dictionary  = {
-	time_mult = 1.,
+	mult = 1.,
 	duration = .5,
 }
 var inner_mults : Dictionary = {
-	time_mult = 1.,
+	mult = 1.,
 	duration = 5.5,
 }
 var outer_mults : Dictionary = {
-	time_mult = 1.,
+	mult = 1.,
 	duration = .5,
 }
 
@@ -32,6 +32,10 @@ func _ready():
 	inner_target_quat = inner_ring.transform.basis.get_rotation_quaternion()
 	center_target_local_quat = Quaternion.IDENTITY
 	Global.ring_pressed.connect(Callable(_on_ring_pressed))
+
+func add_upgrade(upgrade:BaseUpgradeStrategy):
+	upgrade.apply_upgrade(self)
+
 
 func _on_ring_pressed(ring:int):
 	match ring:
@@ -44,12 +48,6 @@ func _on_ring_pressed(ring:int):
 			pass
 
 func _physics_process(delta: float) -> void:
-	#Global.time_manager.turn_time(Global.time_manager.SECONDS_PER_YEAR *100)
-	#if Input.is_action_just_pressed("ui_down"):
-		#start_inner_flip()
-	#if Input.is_action_just_pressed("ui_up"):
-		#start_center_flip()
-	
 	if not center_t or not center_t.is_running():
 		update_center_follow_inner()
 
@@ -67,7 +65,7 @@ func start_inner_flip() -> bool:
 	
 	inner_t = create_tween()
 	inner_t.set_trans(Tween.TRANS_CUBIC)
-	#inner_t.set_ease(Tween.EASE_OUT)
+	inner_t.set_ease(Tween.EASE_OUT)
 	
 	inner_t.tween_method(func(t):
 		var current = start_quat.slerp(inner_target_quat, t)
@@ -79,7 +77,7 @@ func start_inner_flip() -> bool:
 	
 	await inner_t.finished
 	# Add time reward after flipped
-	var turned = 10 * inner_mults.time_mult
+	var turned = 10 * inner_mults.mult
 	Global.time_manager.turn_time(turned)
 	return true
 
@@ -113,7 +111,7 @@ func start_center_flip() -> bool:
 	
 	await center_t.finished
 	# Add time reward after flipped
-	var turned = 1 * center_mults.time_mult
+	var turned = 1 * center_mults.mult
 	Global.time_manager.turn_time(turned)
 	
 	return true

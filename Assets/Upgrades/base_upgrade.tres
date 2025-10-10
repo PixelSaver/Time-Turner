@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="BaseUpgradeStrategy" load_steps=3 format=3 uid="uid://dc54oann5toh4"]
+
+[ext_resource type="Script" uid="uid://c7h6ho5gmbdg0" path="res://Assets/Upgrades/Classes/base_upgrade_strategy.gd" id="1_3g2jg"]
+[ext_resource type="Texture2D" uid="uid://danv0hg6k80ad" path="res://Assets/icon.svg" id="2_dd4xh"]
+
+[resource]
+script = ExtResource("1_3g2jg")
+texture = ExtResource("2_dd4xh")
+upgrade_text = "Upgrade Base"
+upgrade_description = ""
+on_added = false

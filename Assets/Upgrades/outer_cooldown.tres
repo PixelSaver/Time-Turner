@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="OuterCooldownStrategy" load_steps=3 format=3 uid="uid://dlddi177ti20e"]
+
+[ext_resource type="Script" uid="uid://crlyouv44pkl4" path="res://Assets/Upgrades/Classes/outer_cooldown_strategy.gd" id="1_sv8jo"]
+[ext_resource type="Texture2D" uid="uid://danv0hg6k80ad" path="res://Assets/icon.svg" id="2_8p8an"]
+
+[resource]
+script = ExtResource("1_sv8jo")
+mult = 0.9
+texture = ExtResource("2_8p8an")
+upgrade_text = "Cooldown Outer"
+upgrade_description = ""
+on_added = false

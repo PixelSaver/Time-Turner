@@ -211,6 +211,7 @@ label = NodePath("TimeCounter/Panel/RichTextLabel")
 minus_label = NodePath("Minus")
 
 [node name="Minus" type="RichTextLabel" parent="UI/Control/TimeManager"]
+visible = false
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 0
 offset_left = 535.0
