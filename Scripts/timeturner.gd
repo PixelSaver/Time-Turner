@@ -1,4 +1,5 @@
 extends Node3D
+class_name TimeTurner
 
 @export var inner_ring : PhysicsBody3D
 @export var center : PhysicsBody3D
