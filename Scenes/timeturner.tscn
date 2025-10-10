@@ -1,10 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://bcpq7dlbvxm7q"]
+[gd_scene load_steps=18 format=3 uid="uid://bcpq7dlbvxm7q"]
 
 [ext_resource type="Script" uid="uid://go3ktus0ojnc" path="res://Scripts/timeturner.gd" id="1_seunl"]
 [ext_resource type="Shader" uid="uid://cfrtbq1050pa3" path="res://Shaders/background.gdshader" id="2_6v6tp"]
 [ext_resource type="Material" uid="uid://dbasvcmttx2fk" path="res://Assets/gold_timeturner.tres" id="2_jt7fs"]
 [ext_resource type="Theme" uid="uid://bu0t5yp4ma0l7" path="res://Assets/UI_theme.tres" id="4_k1arh"]
 [ext_resource type="Theme" uid="uid://dy0srow56ym10" path="res://Assets/circular_button.tres" id="5_egm6d"]
+[ext_resource type="Script" uid="uid://c2bgm80cvqamb" path="res://Scripts/circle_button.gd" id="6_pii81"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_t4i0o"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -231,9 +232,19 @@ fit_content = true
 vertical_alignment = 1
 
 [node name="Button" type="Button" parent="UI/Control"]
-layout_mode = 0
-offset_left = 514.0
-offset_top = 306.0
-offset_right = 1168.0
-offset_bottom = 494.0
+custom_minimum_size = Vector2(650, 650)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -300.0
+offset_right = 300.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("5_egm6d")
+disabled = true
+script = ExtResource("6_pii81")

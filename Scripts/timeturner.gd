@@ -6,7 +6,6 @@ extends Node3D
 var rotation_speed : float = .3
 var max_rotation_speed : float = 1
 
-# Track target rotations (where we want to end up)
 var inner_target_quat : Quaternion
 var center_target_local_quat : Quaternion
 
@@ -17,6 +16,7 @@ var flip_duration : float = 10
 func _ready():
 	inner_target_quat = inner_ring.transform.basis.get_rotation_quaternion()
 	center_target_local_quat = Quaternion.IDENTITY
+	await Global.circle_button_ready
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_down"):
