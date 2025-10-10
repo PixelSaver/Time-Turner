@@ -11,7 +11,6 @@ func _ready() -> void:
 	Global.hover_change.connect(_on_hover_changed)
 
 func _on_hover_changed(newly_hovered: int) -> void:
-	print("hover chagned to: %s" % newly_hovered)
 	var groups = {
 		Global.Rings.CENTER: center_arr,
 		Global.Rings.INNER: inner_ring_arr,

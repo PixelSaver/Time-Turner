@@ -199,7 +199,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="TimeManager" type="Control" parent="UI/Control" node_paths=PackedStringArray("label")]
+[node name="TimeManager" type="Control" parent="UI/Control" node_paths=PackedStringArray("label", "minus_label")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -208,6 +208,20 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("7_8t3bq")
 label = NodePath("TimeCounter/Panel/RichTextLabel")
+minus_label = NodePath("Minus")
+
+[node name="Minus" type="RichTextLabel" parent="UI/Control/TimeManager"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 0
+offset_left = 535.0
+offset_top = 52.0
+offset_right = 634.0
+offset_bottom = 107.0
+bbcode_enabled = true
+text = "[color=red]- 10 s"
+fit_content = true
+autowrap_mode = 0
+vertical_alignment = 1
 
 [node name="TimeCounter" type="MarginContainer" parent="UI/Control/TimeManager"]
 layout_mode = 1

@@ -37,15 +37,14 @@ func _on_ring_pressed(ring:int):
 	match ring:
 		Global.Rings.CENTER:
 			start_center_flip()
+				
 		Global.Rings.INNER:
-			if start_inner_flip():
-				Global.time_manager.turn_time(\
-						Global.time_manager.SECONDS_PER_YEAR * pow(10,3))
+			start_inner_flip()
 		Global.Rings.OUTER:
 			pass
 
 func _physics_process(delta: float) -> void:
-	Global.time_manager.turn_time(Global.time_manager.SECONDS_PER_YEAR *100)
+	#Global.time_manager.turn_time(Global.time_manager.SECONDS_PER_YEAR *100)
 	#if Input.is_action_just_pressed("ui_down"):
 		#start_inner_flip()
 	#if Input.is_action_just_pressed("ui_up"):
@@ -67,7 +66,7 @@ func start_inner_flip() -> bool:
 	var start_quat = inner_ring.transform.basis.get_rotation_quaternion()
 	
 	inner_t = create_tween()
-	inner_t.set_trans(Tween.TRANS_QUINT)
+	inner_t.set_trans(Tween.TRANS_CUBIC)
 	#inner_t.set_ease(Tween.EASE_OUT)
 	
 	inner_t.tween_method(func(t):
@@ -77,12 +76,17 @@ func start_inner_flip() -> bool:
 		if not center_t or not center_t.is_running():
 			update_center_follow_inner()
 	, 0.0, 1.0, inner_mults.duration)
+	
+	await inner_t.finished
+	# Add time reward after flipped
+	var turned = 10 * inner_mults.time_mult
+	Global.time_manager.turn_time(turned)
 	return true
 
-func start_center_flip() -> void:
+func start_center_flip() -> bool:
 	if center_t:
 		if center_t.get_total_elapsed_time() < center_mults.duration:
-			return
+			return false
 		center_t.kill()
 	
 	var x_axis = Vector3.RIGHT
@@ -106,6 +110,13 @@ func start_center_flip() -> void:
 		# inner ring rotation + local rotation
 		center.transform.basis = Basis(current_inner_quat * current_local)
 	, 0.0, 1.0, center_mults.duration)
+	
+	await center_t.finished
+	# Add time reward after flipped
+	var turned = 1 * center_mults.time_mult
+	Global.time_manager.turn_time(turned)
+	
+	return true
 
 ## Make center follow inner ring rotation with its local rotation
 func update_center_follow_inner():
