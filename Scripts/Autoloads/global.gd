@@ -13,3 +13,5 @@ enum Rings {
 	INNER,
 	OUTER,
 }
+
+var time_manager 

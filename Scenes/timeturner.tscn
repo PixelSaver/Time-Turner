@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bcpq7dlbvxm7q"]
+[gd_scene load_steps=19 format=3 uid="uid://bcpq7dlbvxm7q"]
 
 [ext_resource type="Script" uid="uid://go3ktus0ojnc" path="res://Scripts/timeturner.gd" id="1_seunl"]
 [ext_resource type="Shader" uid="uid://cfrtbq1050pa3" path="res://Shaders/background.gdshader" id="2_6v6tp"]
@@ -6,6 +6,7 @@
 [ext_resource type="Theme" uid="uid://bu0t5yp4ma0l7" path="res://Assets/UI_theme.tres" id="4_k1arh"]
 [ext_resource type="Theme" uid="uid://dy0srow56ym10" path="res://Assets/circular_button.tres" id="5_egm6d"]
 [ext_resource type="Script" uid="uid://c2bgm80cvqamb" path="res://Scripts/circle_button.gd" id="6_pii81"]
+[ext_resource type="Script" uid="uid://dab74pruhdrni" path="res://Scripts/time_manager.gd" id="7_8t3bq"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_t4i0o"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -206,7 +207,17 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="TimeCounter" type="MarginContainer" parent="UI/Control"]
+[node name="TimeManager" type="Control" parent="UI/Control" node_paths=PackedStringArray("label")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_8t3bq")
+label = NodePath("TimeCounter/Panel/RichTextLabel")
+
+[node name="TimeCounter" type="MarginContainer" parent="UI/Control/TimeManager"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.45
@@ -215,10 +226,10 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Panel" type="Panel" parent="UI/Control/TimeCounter"]
+[node name="Panel" type="Panel" parent="UI/Control/TimeManager/TimeCounter"]
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="UI/Control/TimeCounter/Panel"]
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/Control/TimeManager/TimeCounter/Panel"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
