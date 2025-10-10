@@ -25,7 +25,7 @@ func _process(delta: float) -> void:
 		Global.hovered_ring = Global.Rings.CENTER
 	elif mouse_dist < 270:
 		Global.hovered_ring = Global.Rings.INNER
-	elif mouse_dist < 220:
+	elif mouse_dist < 320:
 		Global.hovered_ring = Global.Rings.OUTER
 	else:
 		Global.hovered_ring = Global.Rings.NONE

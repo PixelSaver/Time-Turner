@@ -5,7 +5,13 @@ var circle_button : CircleButton :
 	set(val):
 		circle_button = val
 		circle_button_ready.emit()
-var hovered_ring = Rings.NONE
+signal hover_change(new_ring)
+var hovered_ring = Rings.NONE :
+	set(val):
+		if hovered_ring == val: return
+		hovered_ring = val
+		hover_change.emit(val)
+		
 signal ring_pressed(ring)
 enum Rings {
 	NONE,
