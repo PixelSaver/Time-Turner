@@ -24,7 +24,6 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_up"):
 		start_center_flip()
 	
-	# Always keep center synced with inner ring
 	if not center_t or not center_t.is_running():
 		update_center_follow_inner()
 
