@@ -29,7 +29,7 @@ func turn_time(amount:float):
 	add_child(temp)
 	temp.show()
 	temp.clear()
-	temp.append_text("[color=red]- %s" % format_time_amount(amount))
+	temp.append_text("[color=#5CE65C]- %s" % format_time_amount(amount))
 	var t = create_tween().set_trans(Tween.TRANS_LINEAR)
 	t.tween_property(temp, "position:y", temp.position.y + 100, 0.5)
 	t.tween_property(temp, "modulate:a", 0, 0.5)
