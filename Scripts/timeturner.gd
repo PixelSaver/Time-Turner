@@ -24,10 +24,12 @@ func _on_ring_pressed(ring:int):
 			start_center_flip()
 		Global.Rings.INNER:
 			start_inner_flip()
+			Global.time_manager.turn_time(Global.time_manager.SECONDS_PER_YEAR * pow(10,3))
 		Global.Rings.OUTER:
 			pass
 
 func _physics_process(delta: float) -> void:
+	Global.time_manager.turn_time(Global.time_manager.SECONDS_PER_YEAR /1)
 	#if Input.is_action_just_pressed("ui_down"):
 		#start_inner_flip()
 	#if Input.is_action_just_pressed("ui_up"):
