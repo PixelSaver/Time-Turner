@@ -1,9 +1,7 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://dy0srow56ym10"]
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dy0srow56ym10"]
 
-[ext_resource type="Texture2D" uid="uid://dmt13wcch4ma0" path="res://Assets/circle_white.png" id="1_g0iv0"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1fg5l"]
-texture = ExtResource("1_g0iv0")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5gwpf"]
+bg_color = Color(0.858824, 0.439216, 0.627451, 0)
 
 [resource]
-Button/styles/normal = SubResource("StyleBoxTexture_1fg5l")
+Button/styles/focus = SubResource("StyleBoxFlat_5gwpf")

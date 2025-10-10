@@ -1,7 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://bcpq7dlbvxm7q"]
+[gd_scene load_steps=18 format=3 uid="uid://bcpq7dlbvxm7q"]
 
 [ext_resource type="Script" uid="uid://go3ktus0ojnc" path="res://Scripts/timeturner.gd" id="1_seunl"]
-[ext_resource type="Shader" uid="uid://cfrtbq1050pa3" path="res://Shaders/background.gdshader" id="2_6v6tp"]
+[ext_resource type="Script" uid="uid://7hv066xd5o75" path="res://Scripts/time_turner_manager.gd" id="2_1074w"]
 [ext_resource type="Material" uid="uid://dbasvcmttx2fk" path="res://Assets/gold_timeturner.tres" id="2_jt7fs"]
 [ext_resource type="Theme" uid="uid://bu0t5yp4ma0l7" path="res://Assets/UI_theme.tres" id="4_k1arh"]
 [ext_resource type="Theme" uid="uid://dy0srow56ym10" path="res://Assets/circular_button.tres" id="5_egm6d"]
@@ -35,10 +35,6 @@ radius = 1.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_t4i0o"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jt7fs"]
-render_priority = 0
-shader = ExtResource("2_6v6tp")
-
 [sub_resource type="QuadMesh" id="QuadMesh_k1arh"]
 size = Vector2(20, 15)
 
@@ -52,8 +48,8 @@ width = 1
 
 [node name="Timeturner" type="Node3D" node_paths=PackedStringArray("inner_ring", "center")]
 script = ExtResource("1_seunl")
-inner_ring = NodePath("Ring1")
-center = NodePath("Center")
+inner_ring = NodePath("TimeTurnerManager/Ring1")
+center = NodePath("TimeTurnerManager/Center")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 4.11803, -1.80005e-07)
@@ -65,91 +61,88 @@ environment = SubResource("Environment_6v6tp")
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Ring2" type="RigidBody3D" parent="."]
+[node name="TimeTurnerManager" type="Node3D" parent="." node_paths=PackedStringArray("center_arr", "inner_ring_arr", "outer_ring_arr")]
+script = ExtResource("2_1074w")
+center_arr = [NodePath("Center/Disc")]
+inner_ring_arr = [NodePath("Ring1/CSGTorus3D")]
+outer_ring_arr = [NodePath("Ring2/CSGTorus3D")]
+
+[node name="Ring2" type="RigidBody3D" parent="TimeTurnerManager"]
 axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
 gravity_scale = 0.0
 
-[node name="Ring 2" type="CSGCombiner3D" parent="Ring2"]
+[node name="CSGTorus3D" type="CSGTorus3D" parent="TimeTurnerManager/Ring2"]
 transform = Transform3D(0.997808, 0, 0, 0, 0.997808, 0, 0, 0, 0.997808, 0, 0, 0)
+material_override = ExtResource("2_jt7fs")
+inner_radius = 1.8
+outer_radius = 2.0
+sides = 64
+ring_sides = 8
 
-[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="Ring2/Ring 2"]
-radius = 2.0
-height = 0.2
-sides = 32
-material = ExtResource("2_jt7fs")
-
-[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Ring2/Ring 2"]
-transform = Transform3D(1.01118, 0, 0, 0, 1.01118, 0, 0, 0, 1.01118, 0, 0, 0)
-operation = 2
-radius = 1.8
-height = 0.2
-sides = 32
-material = ExtResource("2_jt7fs")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ring2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TimeTurnerManager/Ring2"]
 shape = SubResource("CylinderShape3D_6v6tp")
 
-[node name="Ring1" type="RigidBody3D" parent="."]
+[node name="Ring1" type="RigidBody3D" parent="TimeTurnerManager"]
 rotation_edit_mode = 1
 axis_lock_angular_y = true
 gravity_scale = 0.0
 center_of_mass_mode = 1
 angular_damp_mode = 1
 
-[node name="Ring 1" type="CSGCombiner3D" parent="Ring1"]
-rotation_edit_mode = 1
+[node name="CSGTorus3D" type="CSGTorus3D" parent="TimeTurnerManager/Ring1"]
+transform = Transform3D(0.997808, 0, 0, 0, 0.997808, 0, 0, 0, 0.997808, 0, 0, 0)
+material_override = ExtResource("2_jt7fs")
+inner_radius = 1.5
+outer_radius = 1.7
+sides = 64
+ring_sides = 8
 
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Ring1/Ring 1"]
-radius = 1.7
-height = 0.2
-sides = 32
-material = ExtResource("2_jt7fs")
-
-[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Ring1/Ring 1"]
-operation = 2
-radius = 1.5
-height = 0.2
-sides = 32
-material = ExtResource("2_jt7fs")
-
-[node name="Pin" type="CSGCylinder3D" parent="Ring1"]
-transform = Transform3D(0.997814, 0, 0, 0, -4.36157e-08, 0.997814, 0, -0.997814, -4.36157e-08, 0, 0, 0)
+[node name="Pin" type="CSGCylinder3D" parent="TimeTurnerManager/Ring1/CSGTorus3D"]
+transform = Transform3D(1.00001, 0, 0, 0, -4.37115e-08, 1.00001, 0, -1.00001, -4.37115e-08, 0, 0, 0)
+material_override = ExtResource("2_jt7fs")
 radius = 0.05
 height = 3.75
-material = ExtResource("2_jt7fs")
 
-[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="Ring1/Pin"]
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="TimeTurnerManager/Ring1/CSGTorus3D/Pin"]
 transform = Transform3D(0.999999, 0.0012, -0.000971142, -0.00119941, 0.999999, 0.000605606, 0.000971866, -0.000604444, 1, 0, 0, 0)
+material_override = ExtResource("2_jt7fs")
 operation = 2
 radius = 0.1
 height = 3.1
-material = ExtResource("2_jt7fs")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ring1"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TimeTurnerManager/Ring1"]
 shape = SubResource("CylinderShape3D_t4i0o")
 disabled = true
 
-[node name="Center" type="RigidBody3D" parent="."]
+[node name="Center" type="RigidBody3D" parent="TimeTurnerManager"]
 rotation_edit_mode = 1
 gravity_scale = 0.0
 
-[node name="Disc" type="CSGCylinder3D" parent="Center"]
-radius = 1.4
+[node name="Disc" type="CSGCylinder3D" parent="TimeTurnerManager/Center"]
+material_override = ExtResource("2_jt7fs")
+radius = 1.3
 height = 0.2
 sides = 32
 material = ExtResource("2_jt7fs")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Center"]
-shape = SubResource("CylinderShape3D_seunl")
-disabled = true
+[node name="CSGTorus3D" type="CSGTorus3D" parent="TimeTurnerManager/Center/Disc"]
+material_override = ExtResource("2_jt7fs")
+inner_radius = 1.2
+outer_radius = 1.4
+sides = 32
+ring_sides = 16
 
-[node name="Pin" type="CSGCylinder3D" parent="Center"]
+[node name="Pin" type="CSGCylinder3D" parent="TimeTurnerManager/Center/Disc"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+material_override = ExtResource("2_jt7fs")
 radius = 0.05
 height = 3.1
-material = ExtResource("2_jt7fs")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TimeTurnerManager/Center"]
+shape = SubResource("CylinderShape3D_seunl")
+disabled = true
 
 [node name="Base" type="StaticBody3D" parent="."]
 visible = false
@@ -159,7 +152,6 @@ shape = SubResource("SphereShape3D_t4i0o")
 
 [node name="BG" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -2.9611, 1.29434e-07)
-material_override = SubResource("ShaderMaterial_jt7fs")
 mesh = SubResource("QuadMesh_k1arh")
 
 [node name="UI" type="CanvasLayer" parent="."]
