@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://cxyr3ik6x5llx" path="res://Scripts/upgrade_button.gd" id="1_yieou"]
 [ext_resource type="Theme" uid="uid://bu0t5yp4ma0l7" path="res://Assets/UI_theme.tres" id="1_ymg7c"]
 
-[node name="UpgradeButton" type="Button" node_paths=PackedStringArray("title_label", "desc_label", "texture_rect")]
+[node name="UpgradeButton" type="Button" node_paths=PackedStringArray("title_label", "desc_label", "texture_rect", "price_label")]
 custom_minimum_size = Vector2(300, 100)
 theme = ExtResource("1_ymg7c")
 flat = true
@@ -12,6 +12,7 @@ script = ExtResource("1_yieou")
 title_label = NodePath("Upgrade/HBoxContainer/VBoxContainer/TitleLabel")
 desc_label = NodePath("Upgrade/HBoxContainer/VBoxContainer/DescLabel")
 texture_rect = NodePath("Upgrade/HBoxContainer/TextureRect")
+price_label = NodePath("Upgrade/PriceLabel")
 
 [node name="Upgrade" type="Panel" parent="."]
 clip_contents = true
@@ -65,6 +66,18 @@ mouse_filter = 2
 theme_override_font_sizes/normal_font_size = 20
 text = "I wonder "
 fit_content = true
+
+[node name="PriceLabel" type="RichTextLabel" parent="Upgrade"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.684
+anchor_top = 0.661
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[color=grey][font_size=10]Text"
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

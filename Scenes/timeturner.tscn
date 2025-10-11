@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bcpq7dlbvxm7q"]
+[gd_scene load_steps=26 format=3 uid="uid://bcpq7dlbvxm7q"]
 
 [ext_resource type="Script" uid="uid://go3ktus0ojnc" path="res://Scripts/timeturner.gd" id="1_seunl"]
 [ext_resource type="Script" uid="uid://7hv066xd5o75" path="res://Scripts/time_turner_manager.gd" id="2_1074w"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://mbo83nfqw3sn" path="res://Scenes/upgrade_button.tscn" id="7_maq1p"]
 [ext_resource type="Script" uid="uid://c42l28qsvy4c8" path="res://Scripts/upgrade_manager.gd" id="7_rwwjb"]
 [ext_resource type="Resource" uid="uid://bvigestjvbbx4" path="res://Assets/Upgrades/center_mult.tres" id="8_ebuvx"]
+[ext_resource type="FontFile" uid="uid://dhr766llbreyh" path="res://Assets/Fonts/digital-7/digital-7.ttf" id="10_fdb7k"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_t4i0o"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -56,6 +57,9 @@ colors = PackedColorArray(1, 1, 1, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_egm6d"]
 gradient = SubResource("Gradient_k1arh")
 width = 1
+
+[sub_resource type="Theme" id="Theme_gsm23"]
+default_font = ExtResource("10_fdb7k")
 
 [node name="Timeturner" type="Node3D" node_paths=PackedStringArray("inner_ring", "center") groups=["TimeTurner"]]
 script = ExtResource("1_seunl")
@@ -238,6 +242,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme = SubResource("Theme_gsm23")
 script = ExtResource("7_8t3bq")
 label = NodePath("TimeCounter/Panel/RichTextLabel")
 minus_label = NodePath("Minus")
