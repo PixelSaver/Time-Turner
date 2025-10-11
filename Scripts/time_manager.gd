@@ -12,7 +12,7 @@ var current_time : float
 var time_turned : float = 0.0 :
 	set(val):
 		time_turned = val
-		time_turned_signal.emit(val)
+		call_deferred("time_signal")
 
 const BIG_BANG_AGE_YEARS : float = 13.8e9
 const SECONDS_PER_YEAR : float = 365.25 * 24 * 60 * 60
@@ -20,6 +20,9 @@ const BIG_BANG_TIME : float = -BIG_BANG_AGE_YEARS * SECONDS_PER_YEAR
 const UNIX_EPOCH_YEAR : int = 1970
 const MAX_BC_YEAR : int = 10e4
 const YEARS_AGO_THRESHOLD : float = 1e8
+
+func time_signal():
+	time_turned_signal.emit(time_turned)
 
 func _ready() -> void:
 	Global.time_manager = self
