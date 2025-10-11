@@ -72,7 +72,7 @@ environment = SubResource("Environment_6v6tp")
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
 
-[node name="TimeTurnerManager" type="Node3D" parent="." node_paths=PackedStringArray("center_arr", "inner_ring_arr", "outer_ring_arr")]
+[node name="TimeTurnerManager" type="Node3D" parent="." node_paths=PackedStringArray("center_arr", "inner_ring_arr", "outer_ring_arr") groups=["TimeManager"]]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 script = ExtResource("2_1074w")
 center_arr = [NodePath("Center/Disc")]
@@ -230,7 +230,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="TimeManager" type="Control" parent="UI/Control" node_paths=PackedStringArray("label", "minus_label")]
+[node name="TimeManager" type="Control" parent="UI/Control" node_paths=PackedStringArray("label", "minus_label", "turned_label") groups=["TimeManager"]]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -241,6 +241,7 @@ mouse_filter = 2
 script = ExtResource("7_8t3bq")
 label = NodePath("TimeCounter/Panel/RichTextLabel")
 minus_label = NodePath("Minus")
+turned_label = NodePath("TimeTurned/Panel/TurnedLabel")
 
 [node name="Minus" type="RichTextLabel" parent="UI/Control/TimeManager"]
 visible = false
@@ -279,6 +280,35 @@ offset_right = -10.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Time: TIME FOR YOU TO GET A WATCH"
+fit_content = true
+vertical_alignment = 1
+
+[node name="TimeTurned" type="MarginContainer" parent="UI/Control/TimeManager"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.45
+anchor_bottom = 0.12
+offset_left = 13.0
+offset_top = 103.0
+offset_right = -247.6
+offset_bottom = 68.36
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Panel" type="Panel" parent="UI/Control/TimeManager/TimeTurned"]
+layout_mode = 2
+
+[node name="TurnedLabel" type="RichTextLabel" parent="UI/Control/TimeManager/TimeTurned/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_right = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Time: watch time"
 fit_content = true
 vertical_alignment = 1
 

@@ -1,11 +1,18 @@
 extends Control
 class_name TimeManager
 
+signal time_turned_signal(new_total:float)
+
 @export var label : RichTextLabel
 @export var minus_label : RichTextLabel
+@export var turned_label : RichTextLabel
 
+var start_time : float 
 var current_time : float
-var time_turned : float = 0.0
+var time_turned : float = 0.0 :
+	set(val):
+		time_turned = val
+		time_turned_signal.emit(val)
 
 const BIG_BANG_AGE_YEARS : float = 13.8e9
 const SECONDS_PER_YEAR : float = 365.25 * 24 * 60 * 60
@@ -16,11 +23,13 @@ const YEARS_AGO_THRESHOLD : float = 1e8
 
 func _ready() -> void:
 	Global.time_manager = self
+	start_time = Time.get_unix_time_from_system()
 
 func _process(delta: float) -> void:
 	current_time = Time.get_unix_time_from_system()
-	
 	label.text = get_display_time()
+	#turned_label.text = "Time Turned: " + format_time_amount(time_turned + (start_time-current_time))
+	turned_label.text = "Time Turned: " + format_time_amount(time_turned)
 
 ## Add an amount to the time turned into the past in seconds
 func turn_time(amount:float):

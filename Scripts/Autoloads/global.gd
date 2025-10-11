@@ -20,4 +20,6 @@ enum Rings {
 	OUTER,
 }
 
-var time_manager : TimeManager
+var time_manager : TimeManager :
+	get():
+		return time_manager

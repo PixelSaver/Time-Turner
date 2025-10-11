@@ -22,10 +22,11 @@ func instantiate_update(upgrade:BaseUpgradeStrategy):
 	var inst = upgrade_scene.instantiate() as UpgradeButton
 	parent.add_child(inst)
 	inst.stored_upgrade = upgrade
-	inst.manual_init()
 	inst.connect("upgrade_pressed", apply_upgrade)
+	await get_tree().process_frame
+	inst.manual_init()
 
 func apply_upgrade(upgrade:BaseUpgradeStrategy):
-	print("pressed")
 	var timeturner = get_tree().get_first_node_in_group("TimeTurner") as TimeTurner
+	Global.time_manager.time_turned -= upgrade.price_in_seconds
 	timeturner.add_upgrade(upgrade)
