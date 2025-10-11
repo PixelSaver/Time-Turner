@@ -20,16 +20,22 @@ var initial_prices = [
 	5.,
 ]
 var center_mults: Dictionary  = {
+	last_spin = 0.,
+	auto = 0,
 	unlocked = 0,
 	mult = 1.,
 	duration = .5,
 }
 var inner_mults : Dictionary = {
+	last_spin = 0.,
+	auto = 0,
 	unlocked = 0,
 	mult = 1.,
 	duration = 5.5,
 }
 var outer_mults : Dictionary = {
+	last_spin = 0.,
+	auto = 0,
 	unlocked = 0,
 	mult = 1.,
 	duration = .5,
@@ -55,6 +61,18 @@ func _on_ring_pressed(ring:int):
 				start_inner_flip()
 		Global.Rings.OUTER:
 			pass
+
+func _process(delta: float) -> void:
+	if center_mults.auto > 0:
+		if Time.get_unix_time_from_system() - center_mults.last_spin > center_mults.duration * 3 / log(center_mults.auto):
+			var turned = 1 * pow(center_mults.mult,2)
+			Global.time_manager.turn_time(turned)
+			center_mults.last_spin = Time.get_unix_time_from_system()
+	if inner_mults.auto > 0:
+		if Time.get_unix_time_from_system() - inner_mults.last_spin > inner_mults.duration * 3 / log(inner_mults.auto):
+			var turned = 1 * pow(inner_mults.mult,2)
+			Global.time_manager.turn_time(turned)
+			inner_mults.last_spin = Time.get_unix_time_from_system()
 
 func _physics_process(delta: float) -> void:
 	if not center_t or not center_t.is_running():

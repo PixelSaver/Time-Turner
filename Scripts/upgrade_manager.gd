@@ -5,9 +5,12 @@ class_name UpgradeManager
 @onready var all_upgrades : Array = [
 	preload("res://Assets/Upgrades//center_cooldown.tres"),
 	preload("res://Assets/Upgrades//center_mult.tres"),
+	preload("res://Assets/Upgrades//center_auto.tres"),
+	
 	preload("res://Assets/Upgrades/inner_unlock.tres"),
 	preload("res://Assets/Upgrades//inner_cooldown.tres"),
 	preload("res://Assets/Upgrades//inner_mult.tres"),
+	preload("res://Assets/Upgrades/inner_auto.tres"),
 	#preload("res://Assets/Upgrades//outer_cooldown.tres"),
 	#preload("res://Assets/Upgrades//outer_mult.tres"),
 ]
@@ -16,7 +19,7 @@ class_name UpgradeManager
 func _ready() -> void:
 	for child in parent.get_children():
 		child.queue_free()
-	for i in range(3):
+	for i in range(4):
 		instantiate_update(all_upgrades[i])
 			
 
@@ -33,5 +36,6 @@ func apply_upgrade(upgrade:BaseUpgradeStrategy):
 	timeturner.add_upgrade(upgrade)
 	match upgrade.unlock_index:
 		1:
-			instantiate_update(all_upgrades[3])
 			instantiate_update(all_upgrades[4])
+			instantiate_update(all_upgrades[5])
+			instantiate_update(all_upgrades[6])

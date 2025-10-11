@@ -33,7 +33,7 @@ func manual_init():
 
 func update_price():
 	var curr = stored_upgrade.price_in_seconds
-	scaled_price = curr * exp(float(level)/3.)
+	scaled_price = curr * exp(float(level)/stored_upgrade.price_mult)
 	
 	price_label.clear()
 	price_label.append_text("[color=grey][font_size=12]Price: %s" % time_man.format_time_amount(scaled_price))

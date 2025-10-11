@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="InnerAutoStrategy" load_steps=3 format=3 uid="uid://b4yx67j6geij7"]
+
+[ext_resource type="Script" uid="uid://b6gfyqs2ge0id" path="res://Assets/Upgrades/Classes/inner_auto_strategy.gd" id="1_3swq7"]
+[ext_resource type="Texture2D" uid="uid://danv0hg6k80ad" path="res://Assets/icon.svg" id="2_kuxlu"]
+
+[resource]
+script = ExtResource("1_3swq7")
+mult = 1.0
+texture = ExtResource("2_kuxlu")
+upgrade_text = "Speed"
+upgrade_description = ""
+price_in_seconds = 1.0
+on_added = false
+price_mult = 3.0
+unlock_index = 0
+metadata/_custom_type_script = "uid://b6gfyqs2ge0id"

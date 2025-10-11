@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CenterCooldownStrategy" load_steps=3 format=3 uid="uid://c31e2sotax0ap"]
+
+[ext_resource type="Script" uid="uid://but481g7olw6h" path="res://Assets/Upgrades/Classes/center_auto_strategy.gd" id="1_rhyrg"]
+[ext_resource type="Texture2D" uid="uid://danv0hg6k80ad" path="res://Assets/icon.svg" id="2_pxvof"]
+
+[resource]
+script = ExtResource("1_rhyrg")
+mult = 1.0
+texture = ExtResource("2_pxvof")
+upgrade_text = "Center Auto"
+upgrade_description = "Adds an automatic turner independently"
+price_in_seconds = 200.0
+on_added = false
+price_mult = 3.0
+unlock_index = 0
+metadata/_custom_type_script = "uid://but481g7olw6h"
