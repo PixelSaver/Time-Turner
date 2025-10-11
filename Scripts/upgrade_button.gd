@@ -16,6 +16,7 @@ var time_man : TimeManager
 var scaled_price : float
 
 func manual_init():
+	
 	grab_focus()
 	pivot_offset = size/2
 	time_turner = get_tree().get_first_node_in_group("TimeTurner")
@@ -23,11 +24,12 @@ func manual_init():
 	desc_label.text = stored_upgrade.upgrade_description
 	texture_rect.texture = stored_upgrade.texture
 	
+	await get_tree().process_frame
 	time_man = Global.time_manager
 	time_man.connect("time_turned_signal", _update_buyable)
-	_update_buyable(0.)
 	
 	update_price()
+	_update_buyable(0.)
 
 func update_price():
 	var curr = stored_upgrade.price_in_seconds
@@ -35,6 +37,10 @@ func update_price():
 	
 	price_label.clear()
 	price_label.append_text("[color=grey][font_size=12]Price: %s" % time_man.format_time_amount(scaled_price))
+	
+	# Frees it if its a one time unlock
+	if stored_upgrade.unlock_index > 0 and level > 0:
+		queue_free()
 
 func _update_buyable(new_total:float):
 	buyable = true if (new_total > scaled_price or is_equal_approx(new_total, scaled_price)) else false

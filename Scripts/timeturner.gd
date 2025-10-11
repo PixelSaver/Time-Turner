@@ -15,15 +15,22 @@ var center_t : Tween
 var flip_duration : float = .5
 
 # Mults for upgrades
+var initial_prices = [
+	1.,
+	5.,
+]
 var center_mults: Dictionary  = {
+	unlocked = 0,
 	mult = 1.,
 	duration = .5,
 }
 var inner_mults : Dictionary = {
+	unlocked = 0,
 	mult = 1.,
 	duration = 5.5,
 }
 var outer_mults : Dictionary = {
+	unlocked = 0,
 	mult = 1.,
 	duration = .5,
 }
@@ -44,7 +51,8 @@ func _on_ring_pressed(ring:int):
 			start_center_flip()
 				
 		Global.Rings.INNER:
-			start_inner_flip()
+			if inner_mults.unlocked > 0:
+				start_inner_flip()
 		Global.Rings.OUTER:
 			pass
 
@@ -112,7 +120,7 @@ func start_center_flip() -> bool:
 	
 	await center_t.finished
 	# Add time reward after flipped
-	var turned = 1 * center_mults.mult
+	var turned = 1 * pow(center_mults.mult,2)
 	Global.time_manager.turn_time(turned)
 	
 	return true

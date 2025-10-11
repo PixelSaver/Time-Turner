@@ -1,0 +1,90 @@
+[gd_scene load_steps=4 format=3 uid="uid://bp7dvvqa0t8pt"]
+
+[ext_resource type="FontFile" uid="uid://dhr766llbreyh" path="res://Assets/Fonts/digital-7/digital-7.ttf" id="1_08ef8"]
+[ext_resource type="Script" uid="uid://dab74pruhdrni" path="res://Scripts/time_manager.gd" id="2_huk8s"]
+
+[sub_resource type="Theme" id="Theme_gsm23"]
+default_font = ExtResource("1_08ef8")
+
+[node name="TimeManager" type="Control" node_paths=PackedStringArray("label", "minus_label", "turned_label") groups=["TimeManager"]]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = SubResource("Theme_gsm23")
+script = ExtResource("2_huk8s")
+label = NodePath("TimeCounter/Panel/RichTextLabel")
+minus_label = NodePath("Minus")
+turned_label = NodePath("TimeTurned/Panel/TurnedLabel")
+
+[node name="Minus" type="RichTextLabel" parent="."]
+visible = false
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 0
+offset_left = 535.0
+offset_top = 52.0
+offset_right = 634.0
+offset_bottom = 107.0
+mouse_filter = 2
+bbcode_enabled = true
+text = "[color=red]- 10 s"
+fit_content = true
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="TimeCounter" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.45
+anchor_bottom = 0.12
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Panel" type="Panel" parent="TimeCounter"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TimeCounter/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_right = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Time: TIME FOR YOU TO GET A WATCH"
+fit_content = true
+vertical_alignment = 1
+
+[node name="TimeTurned" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.45
+anchor_bottom = 0.12
+offset_left = 13.0
+offset_top = 103.0
+offset_right = -247.6
+offset_bottom = 68.36
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Panel" type="Panel" parent="TimeTurned"]
+layout_mode = 2
+
+[node name="TurnedLabel" type="RichTextLabel" parent="TimeTurned/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_right = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Time: watch time"
+fit_content = true
+vertical_alignment = 1

@@ -7,8 +7,9 @@
 script = ExtResource("1_aknlo")
 mult = 0.9
 texture = ExtResource("2_ek3wm")
-upgrade_text = "Speed"
-upgrade_description = ""
+upgrade_text = "Center Cooldown"
+upgrade_description = "Decreases cooldown for center by 10%"
 price_in_seconds = 1.0
 on_added = false
+price_mult = 3.0
 metadata/_custom_type_script = "uid://cy3rtgu254dkp"

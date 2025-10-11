@@ -51,11 +51,12 @@ stretch_mode = 5
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
+theme_override_constants/separation = -5
 
 [node name="TitleLabel" type="RichTextLabel" parent="Upgrade/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 mouse_filter = 2
-theme_override_font_sizes/normal_font_size = 30
+theme_override_font_sizes/normal_font_size = 25
 text = "TITLE"
 fit_content = true
 
@@ -63,7 +64,7 @@ fit_content = true
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
-theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/normal_font_size = 17
 text = "I wonder "
 fit_content = true
 

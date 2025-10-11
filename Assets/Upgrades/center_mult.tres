@@ -5,8 +5,11 @@
 
 [resource]
 script = ExtResource("1_xmsgm")
-mult_add = 0.2
+mult_add = 0.1
 texture = ExtResource("2_qgejt")
 upgrade_text = "Mult Center"
-upgrade_description = ""
+upgrade_description = "Increases time turned when center is flipped by 10%"
+price_in_seconds = 1.0
 on_added = false
+price_mult = 3.0
+unlock_index = 0

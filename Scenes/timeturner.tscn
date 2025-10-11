@@ -252,10 +252,10 @@ turned_label = NodePath("TimeTurned/Panel/TurnedLabel")
 visible = false
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 0
-offset_left = 535.0
-offset_top = 52.0
-offset_right = 634.0
-offset_bottom = 107.0
+offset_left = 817.0
+offset_top = 100.0
+offset_right = 916.0
+offset_bottom = 155.0
 mouse_filter = 2
 bbcode_enabled = true
 text = "[color=red]- 10 s"
@@ -266,10 +266,13 @@ vertical_alignment = 1
 [node name="TimeCounter" type="MarginContainer" parent="UI/Control/TimeManager"]
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 0.45
-anchor_bottom = 0.12
+anchor_left = 0.3
+anchor_right = 0.7
+anchor_bottom = 0.08
+offset_left = -10.0
+offset_right = 10.0
+offset_bottom = 20.0
 grow_horizontal = 2
-grow_vertical = 2
 mouse_filter = 2
 
 [node name="Panel" type="Panel" parent="UI/Control/TimeManager/TimeCounter"]
@@ -286,17 +289,16 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Time: TIME FOR YOU TO GET A WATCH"
 fit_content = true
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TimeTurned" type="MarginContainer" parent="UI/Control/TimeManager"]
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 0.45
-anchor_bottom = 0.12
-offset_left = 13.0
-offset_top = 103.0
-offset_right = -247.6
-offset_bottom = 68.36
+anchor_left = 0.35
+anchor_top = 0.09
+anchor_right = 0.65
+anchor_bottom = 0.16
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -315,6 +317,7 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Time: watch time"
 fit_content = true
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Button" type="Button" parent="UI/Control"]
