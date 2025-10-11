@@ -7,10 +7,10 @@
 script = ExtResource("1_3swq7")
 mult = 1.0
 texture = ExtResource("2_kuxlu")
-upgrade_text = "Speed"
-upgrade_description = ""
-price_in_seconds = 1.0
+upgrade_text = "Inner Auto"
+upgrade_description = "Adds an automatic turner independently"
+price_in_seconds = 1800.0
 on_added = false
-price_mult = 3.0
+price_mult = 5.0
 unlock_index = 0
 metadata/_custom_type_script = "uid://b6gfyqs2ge0id"

@@ -36,9 +36,13 @@ func turn_time(amount:float):
 	time_turned += amount
 	var temp = minus_label.duplicate() as RichTextLabel
 	add_child(temp)
+	temp.position += Vector2(randf_range(-50,50),randf_range(-20,20))
 	temp.show()
 	temp.clear()
-	temp.append_text("[color=#5CE65C]- %s" % format_time_amount(amount))
+	if amount > 0:
+		temp.append_text("[color=#5CE65C]- %s" % format_time_amount(amount))
+	else:
+		temp.append_text("[color=red]+ %s" % format_time_amount(abs(amount)))
 	var t = create_tween().set_trans(Tween.TRANS_LINEAR)
 	t.tween_property(temp, "position:y", temp.position.y + 100, 0.5)
 	t.tween_property(temp, "modulate:a", 0, 0.5)

@@ -31,9 +31,8 @@ func instantiate_update(upgrade:BaseUpgradeStrategy):
 	inst.manual_init()
 
 func apply_upgrade(upgrade:BaseUpgradeStrategy):
-	var timeturner = get_tree().get_first_node_in_group("TimeTurner") as TimeTurner
-	Global.time_manager.time_turned -= upgrade.price_in_seconds
-	timeturner.add_upgrade(upgrade)
+	Global.time_manager.turn_time(-upgrade.price_in_seconds)
+	Global.timeturner.add_upgrade(upgrade)
 	match upgrade.unlock_index:
 		1:
 			instantiate_update(all_upgrades[4])

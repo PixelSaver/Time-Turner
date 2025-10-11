@@ -17,7 +17,7 @@ var flip_duration : float = .5
 # Mults for upgrades
 var initial_prices = [
 	1.,
-	5.,
+	300.,
 ]
 var center_mults: Dictionary  = {
 	last_spin = 0.,
@@ -45,6 +45,7 @@ func _ready():
 	inner_target_quat = inner_ring.transform.basis.get_rotation_quaternion()
 	center_target_local_quat = Quaternion.IDENTITY
 	Global.ring_pressed.connect(Callable(_on_ring_pressed))
+	Global.timeturner = self
 
 func add_upgrade(upgrade:BaseUpgradeStrategy):
 	if not upgrade: return
@@ -64,12 +65,12 @@ func _on_ring_pressed(ring:int):
 
 func _process(delta: float) -> void:
 	if center_mults.auto > 0:
-		if Time.get_unix_time_from_system() - center_mults.last_spin > center_mults.duration * 3 / log(center_mults.auto):
+		if Time.get_unix_time_from_system() - center_mults.last_spin > center_mults.duration * 3 / log(center_mults.auto+1):
 			var turned = 1 * pow(center_mults.mult,2)
 			Global.time_manager.turn_time(turned)
 			center_mults.last_spin = Time.get_unix_time_from_system()
 	if inner_mults.auto > 0:
-		if Time.get_unix_time_from_system() - inner_mults.last_spin > inner_mults.duration * 3 / log(inner_mults.auto):
+		if Time.get_unix_time_from_system() - inner_mults.last_spin > inner_mults.duration * 3 / log(inner_mults.auto+1):
 			var turned = 1 * pow(inner_mults.mult,2)
 			Global.time_manager.turn_time(turned)
 			inner_mults.last_spin = Time.get_unix_time_from_system()

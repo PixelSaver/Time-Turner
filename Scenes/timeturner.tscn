@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bcpq7dlbvxm7q"]
+[gd_scene load_steps=25 format=3 uid="uid://bcpq7dlbvxm7q"]
 
 [ext_resource type="Script" uid="uid://go3ktus0ojnc" path="res://Scripts/timeturner.gd" id="1_seunl"]
 [ext_resource type="Script" uid="uid://7hv066xd5o75" path="res://Scripts/time_turner_manager.gd" id="2_1074w"]
@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://mbo83nfqw3sn" path="res://Scenes/upgrade_button.tscn" id="7_maq1p"]
 [ext_resource type="Script" uid="uid://c42l28qsvy4c8" path="res://Scripts/upgrade_manager.gd" id="7_rwwjb"]
 [ext_resource type="Resource" uid="uid://bvigestjvbbx4" path="res://Assets/Upgrades/center_mult.tres" id="8_ebuvx"]
-[ext_resource type="FontFile" uid="uid://dhr766llbreyh" path="res://Assets/Fonts/digital-7/digital-7.ttf" id="10_fdb7k"]
+[ext_resource type="FontFile" uid="uid://35ai5lp8xs5o" path="res://Assets/Fonts/digital-7/digital-7 (mono).ttf" id="10_fdb7k"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_t4i0o"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -38,8 +38,6 @@ radius = 1.7
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_seunl"]
 height = 0.2
 radius = 1.0
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_t4i0o"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_crxf4"]
 render_priority = 0
@@ -79,7 +77,7 @@ shadow_enabled = true
 [node name="TimeTurnerManager" type="Node3D" parent="." node_paths=PackedStringArray("center_arr", "inner_ring_arr", "outer_ring_arr") groups=["TimeManager"]]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 script = ExtResource("2_1074w")
-center_arr = [NodePath("Center/Disc")]
+center_arr = [NodePath("Center/CSGCombiner3D")]
 inner_ring_arr = [NodePath("Ring1/CSGTorus3D")]
 outer_ring_arr = [NodePath("Ring2/CSGTorus3D")]
 
@@ -136,35 +134,54 @@ disabled = true
 rotation_edit_mode = 1
 gravity_scale = 0.0
 
-[node name="Disc" type="CSGCylinder3D" parent="TimeTurnerManager/Center"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TimeTurnerManager/Center"]
+shape = SubResource("CylinderShape3D_seunl")
+disabled = true
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="TimeTurnerManager/Center"]
+material_override = ExtResource("2_jt7fs")
+
+[node name="Disc" type="CSGCylinder3D" parent="TimeTurnerManager/Center/CSGCombiner3D"]
 material_override = ExtResource("2_jt7fs")
 radius = 1.3
 height = 0.2
 sides = 32
 material = ExtResource("2_jt7fs")
 
-[node name="CSGTorus3D" type="CSGTorus3D" parent="TimeTurnerManager/Center/Disc"]
+[node name="CSGTorus3D" type="CSGTorus3D" parent="TimeTurnerManager/Center/CSGCombiner3D"]
 material_override = ExtResource("2_jt7fs")
 inner_radius = 1.2
 outer_radius = 1.4
 sides = 32
 ring_sides = 16
 
-[node name="Pin" type="CSGCylinder3D" parent="TimeTurnerManager/Center/Disc"]
+[node name="Pin" type="CSGCylinder3D" parent="TimeTurnerManager/Center/CSGCombiner3D"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 material_override = ExtResource("2_jt7fs")
 radius = 0.05
 height = 3.1
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TimeTurnerManager/Center"]
-shape = SubResource("CylinderShape3D_seunl")
-disabled = true
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="TimeTurnerManager/Center/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.240747, -1.05234e-08)
+material_override = ExtResource("2_jt7fs")
+operation = 2
+polygon = PackedVector2Array(-0.9, 0.7, 0, 0.3, 0.9, 0.7, 0.9, -0.7, 0, -0.3, -0.9, -0.7)
 
-[node name="Base" type="StaticBody3D" parent="."]
-visible = false
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="TimeTurnerManager/Center/CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.25, 0, 0)
+flip_faces = true
+radius = 0.513
+height = 1.0
+sides = 16
+cone = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Base"]
-shape = SubResource("SphereShape3D_t4i0o")
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="TimeTurnerManager/Center/CSGCombiner3D"]
+transform = Transform3D(1.31134e-07, -1, 0, 1, 1.31134e-07, 0, 0, 0, 1, 0.25, 0, 0)
+flip_faces = true
+radius = 0.513
+height = 1.0
+sides = 16
+cone = true
 
 [node name="BG" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -2.9611, 1.29434e-07)
@@ -250,6 +267,7 @@ turned_label = NodePath("TimeTurned/Panel/TurnedLabel")
 
 [node name="Minus" type="RichTextLabel" parent="UI/Control/TimeManager"]
 visible = false
+z_index = -2
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 0
 offset_left = 817.0
@@ -287,6 +305,8 @@ offset_left = 10.0
 offset_right = -10.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
 text = "Time: TIME FOR YOU TO GET A WATCH"
 fit_content = true
 horizontal_alignment = 1

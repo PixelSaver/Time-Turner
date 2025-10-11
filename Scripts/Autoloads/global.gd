@@ -23,3 +23,4 @@ enum Rings {
 var time_manager : TimeManager :
 	get():
 		return time_manager
+var timeturner : TimeTurner
