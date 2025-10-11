@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bcpq7dlbvxm7q"]
+[gd_scene load_steps=24 format=3 uid="uid://bcpq7dlbvxm7q"]
 
 [ext_resource type="Script" uid="uid://go3ktus0ojnc" path="res://Scripts/timeturner.gd" id="1_seunl"]
 [ext_resource type="Script" uid="uid://7hv066xd5o75" path="res://Scripts/time_turner_manager.gd" id="2_1074w"]
@@ -9,6 +9,9 @@
 [ext_resource type="Theme" uid="uid://dy0srow56ym10" path="res://Assets/circular_button.tres" id="5_egm6d"]
 [ext_resource type="Script" uid="uid://c2bgm80cvqamb" path="res://Scripts/circle_button.gd" id="6_pii81"]
 [ext_resource type="Script" uid="uid://dab74pruhdrni" path="res://Scripts/time_manager.gd" id="7_8t3bq"]
+[ext_resource type="PackedScene" uid="uid://mbo83nfqw3sn" path="res://Scenes/upgrade_button.tscn" id="7_maq1p"]
+[ext_resource type="Script" uid="uid://c42l28qsvy4c8" path="res://Scripts/upgrade_manager.gd" id="7_rwwjb"]
+[ext_resource type="Resource" uid="uid://bvigestjvbbx4" path="res://Assets/Upgrades/center_mult.tres" id="8_ebuvx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_t4i0o"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -54,7 +57,7 @@ colors = PackedColorArray(1, 1, 1, 1)
 gradient = SubResource("Gradient_k1arh")
 width = 1
 
-[node name="Timeturner" type="Node3D" node_paths=PackedStringArray("inner_ring", "center")]
+[node name="Timeturner" type="Node3D" node_paths=PackedStringArray("inner_ring", "center") groups=["TimeTurner"]]
 script = ExtResource("1_seunl")
 inner_ring = NodePath("TimeTurnerManager/Ring1")
 center = NodePath("TimeTurnerManager/Center")
@@ -70,6 +73,7 @@ transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75
 shadow_enabled = true
 
 [node name="TimeTurnerManager" type="Node3D" parent="." node_paths=PackedStringArray("center_arr", "inner_ring_arr", "outer_ring_arr")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 script = ExtResource("2_1074w")
 center_arr = [NodePath("Center/Disc")]
 inner_ring_arr = [NodePath("Ring1/CSGTorus3D")]
@@ -173,10 +177,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_mode = 2
 mouse_filter = 2
 theme = ExtResource("4_k1arh")
 
-[node name="Panel" type="Panel" parent="UI/Control"]
+[node name="UpgradeManager" type="Panel" parent="UI/Control" node_paths=PackedStringArray("parent")]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -185,6 +190,22 @@ offset_left = 1259.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+script = ExtResource("7_rwwjb")
+parent = NodePath("VBoxContainer")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control/UpgradeManager"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="UpgradeButton" parent="UI/Control/UpgradeManager/VBoxContainer" instance=ExtResource("7_maq1p")]
+layout_mode = 2
+flat = false
+stored_upgrade = ExtResource("8_ebuvx")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="UI/Control"]
 layout_mode = 1
@@ -216,6 +237,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("7_8t3bq")
 label = NodePath("TimeCounter/Panel/RichTextLabel")
 minus_label = NodePath("Minus")
@@ -228,6 +250,7 @@ offset_left = 535.0
 offset_top = 52.0
 offset_right = 634.0
 offset_bottom = 107.0
+mouse_filter = 2
 bbcode_enabled = true
 text = "[color=red]- 10 s"
 fit_content = true

@@ -1,7 +1,7 @@
 @tool
 extends EditorScript
 
-var directory = "res://Assets/Upgrades/Classes/"
+var directory = "res://Assets/Upgrades/"
 
 func _run():
 	print("=== UPGRADE FILES IN %s ===" % directory)

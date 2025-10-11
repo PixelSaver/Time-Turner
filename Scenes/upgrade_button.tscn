@@ -1,0 +1,62 @@
+[gd_scene load_steps=3 format=3 uid="uid://mbo83nfqw3sn"]
+
+[ext_resource type="Texture2D" uid="uid://danv0hg6k80ad" path="res://Assets/icon.svg" id="1_lmwtk"]
+[ext_resource type="Script" uid="uid://cxyr3ik6x5llx" path="res://Scripts/upgrade_button.gd" id="1_yieou"]
+
+[node name="UpgradeButton" type="Button" node_paths=PackedStringArray("title_label", "desc_label", "texture_rect")]
+custom_minimum_size = Vector2(300, 150)
+flat = true
+script = ExtResource("1_yieou")
+title_label = NodePath("Upgrade/HBoxContainer/VBoxContainer/TitleLabel")
+desc_label = NodePath("Upgrade/HBoxContainer/VBoxContainer/DescLabel")
+texture_rect = NodePath("Upgrade/HBoxContainer/TextureRect")
+
+[node name="Upgrade" type="Panel" parent="."]
+clip_contents = true
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Upgrade"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Upgrade/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+texture = ExtResource("1_lmwtk")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Upgrade/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TitleLabel" type="RichTextLabel" parent="Upgrade/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "TITLE"
+fit_content = true
+
+[node name="DescLabel" type="RichTextLabel" parent="Upgrade/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+text = "I wonder if this works"
+fit_content = true
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]

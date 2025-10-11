@@ -34,6 +34,7 @@ func _ready():
 	Global.ring_pressed.connect(Callable(_on_ring_pressed))
 
 func add_upgrade(upgrade:BaseUpgradeStrategy):
+	if not upgrade: return
 	upgrade.apply_upgrade(self)
 
 
