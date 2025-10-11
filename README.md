@@ -85,12 +85,12 @@ I think the most important thing is to pick good ideas for the timeframe, since 
 They’re fairly large, so I’ve tucked them into expandable sections:
 
 <details>
-  <summary><strong>Main Menu</strong></summary>
+  <summary><strong>First one</strong></summary>
   <img src="Media/screen1.png" alt="Screenshot of the gameplay">
 </details>
 
 <details>
-  <summary><strong>Settings Menu</strong></summary>
+  <summary><strong>Second one</strong></summary>
   <img src="Media/screen2.png" alt="Screenshot of the gameplay a few minutes in">
 </details>
 
