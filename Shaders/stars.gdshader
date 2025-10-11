@@ -1,5 +1,8 @@
 shader_type spatial;
 render_mode unshaded;
+uniform vec2 mouse_pos;
+uniform vec2 uv_scale;
+
 vec3 palette( float t ) {
     vec3 a = vec3(0.5, 0.5, 0.5);
     vec3 b = vec3(0.5, 0.5, 0.5);
@@ -21,6 +24,8 @@ void fragment()
     vec2 resolution = vec2(1.0);
     vec2 uv = (UV * 2.0 - 1.0);
     uv.x *= resolution.x / resolution.y;
+	uv = uv - mouse_pos*2.+vec2(1.);
+	uv *= normalize(uv_scale);
 
     // Quantize UV for larger stars
     float pixel_size = 150.0; 
